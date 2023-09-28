@@ -35,7 +35,7 @@ class PostController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create()
     {
         return view('posts.create');
     }
@@ -67,7 +67,7 @@ class PostController extends Controller
         ]);
 
         //redirect to index
-        return redirect('/')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('posts.store')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     /**
@@ -155,10 +155,10 @@ class PostController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function destroy($post): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
         //get post by ID
-        $post = Post::findOrFail();
+        $post = Post::findOrFail($id);
 
         //delete image
         Storage::delete('public/posts/' . $post->image);
